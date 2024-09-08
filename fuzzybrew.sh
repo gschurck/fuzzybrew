@@ -2,6 +2,8 @@
 
 # fuzzybrew.sh
 
+VERSION="1.0.0"
+
 fuzzybrew() {
   local query="$1"
   local selected_package
@@ -21,5 +23,10 @@ fuzzybrew() {
     echo "No packages selected."
   fi
 }
+
+if [[ "$1" == "--version" ]]; then
+  echo "fuzzybrew version $VERSION"
+  exit 0
+fi
 
 fuzzybrew "$@"
