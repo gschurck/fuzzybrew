@@ -16,7 +16,7 @@ fuzzybrew() {
       --preview-window=right:60%:wrap
   )
 
-  if [[ -n $selected_packages ]]; then
+  if [[ -n $selected_package ]]; then
     echo "Running: brew install $selected_package"
     brew install "$selected_package"
   else
