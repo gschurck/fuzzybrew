@@ -2,7 +2,7 @@
 
 # fuzzybrew.sh
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 fuzzybrew() {
   local query="$1"
@@ -10,11 +10,11 @@ fuzzybrew() {
   selected_packages=$(
     # Search all packages, evaluate all formulae, and display descriptions
     brew search --eval-all --desc "" | \
-    # Remove the ":" in the list"
+    # Remove the ":" and everything after it to keep just the package name in the list
     sed 's/:.*//' | \
     # Display the list in fzf for fuzzy search
     fzf --multi --ansi --query "$query" \
-      --header 'Press CTRL-C to quit, ENTER to install' \
+      --header 'Press CTRL-C to quit, ENTER to install, SHIFT-TAB to select multiple' \
       --preview 'HOMEBREW_COLOR=1 brew info {1}' \
       --preview-window=right:60%:wrap
   )
