@@ -2,7 +2,7 @@
 
 # fuzzybrew.sh
 
-VERSION="1.1.0"
+VERSION="1.1.1"
 
 fuzzybrew() {
   local query="$1"
@@ -19,7 +19,7 @@ fuzzybrew() {
       --nth=1 \
       --header 'Press CTRL-C to quit, ENTER to install, SHIFT-TAB to select multiple' \
       --preview 'HOMEBREW_COLOR=1 brew info {1}' \
-      --preview-window=right:60%:wrap
+      --preview-window=right:50%:wrap
   )
 
   if [[ -n $selected_packages ]]; then
