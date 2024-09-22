@@ -10,8 +10,8 @@ fuzzybrew() {
   selected_packages=$(
     # Search all packages, evaluate all formulae, and display descriptions
     brew search --eval-all --desc "" | \
-    # Remove the ":" and everything after it to keep just the package name in the list
-    sed 's/:.*//' | \
+    # Remove lines starting with "==>"
+    sed -e '/^==>/d' | \
     # Display the list in fzf for fuzzy search
     fzf --multi --ansi --query "$query" \
       --header 'Press CTRL-C to quit, ENTER to install, SHIFT-TAB to select multiple' \
