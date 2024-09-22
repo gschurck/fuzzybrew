@@ -2,7 +2,7 @@
 
 # fuzzybrew.sh
 
-VERSION="1.0.1"
+VERSION="1.1.0"
 
 fuzzybrew() {
   local query="$1"
@@ -13,7 +13,10 @@ fuzzybrew() {
     # Remove lines starting with "==>"
     sed -e '/^==>/d' | \
     # Display the list in fzf for fuzzy search
+    # Search only by package name
     fzf --multi --ansi --query "$query" \
+      --delimiter=': ' \
+      --nth=1 \
       --header 'Press CTRL-C to quit, ENTER to install, SHIFT-TAB to select multiple' \
       --preview 'HOMEBREW_COLOR=1 brew info {1}' \
       --preview-window=right:60%:wrap
@@ -22,7 +25,7 @@ fuzzybrew() {
   if [[ -n $selected_packages ]]; then
     echo "Running: brew install"
     # Install each selected package
-    echo "$selected_packages" | while read -r package; do
+    echo "$selected_packages" | cut -f1 -d':' | while read -r package; do
       echo "Installing $package"
       brew install "$package"
     done
